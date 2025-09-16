@@ -65,21 +65,7 @@ def vitals_ok(temperature, pulseRate, spo2, blood_sugar, blood_pressure, respira
         'respiratory_rate': respiratory_rate
     }
 
-    # Prepare table header
-    print(f"{'Vital':<17} | {'Value':<7} | {'Status':<8}")
-    print("-" * 38)
-
-    all_ok = True
     for vital_name, vital_value in vitals_values.items():
-        ok = check_vital(vital_name, vital_value)
-        status = "OK" if ok else "Critical"
-        print(f"{vital_name:<17} | {vital_value:<7} | {status:<8}")
-        if not ok:
-            all_ok = False
-
-    return all_ok
-
-
-# Example usage:
-result = vitals_ok(temperature=98.6, pulseRate=55, spo2=95, blood_sugar=120, blood_pressure=135, respiratory_rate=15)
-print("\nOverall Vitals Status:", "OK" if result else "CRITICAL")
+        if not check_vital(vital_name, vital_value):
+            return False
+    return True
