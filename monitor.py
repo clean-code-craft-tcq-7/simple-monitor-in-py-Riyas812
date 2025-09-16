@@ -28,7 +28,7 @@ MESSAGES = {
 VITALS_LIMITS = {
     'temperature': (95, 102),
     'pulseRate': (60, 100),
-    'spo2': (90, 100),  # Assuming 100 is max SPO2
+    'spo2': (90, 100),
     'blood_sugar': (70, 110),
     'blood_pressure': (90, 150),
     'respiratory_rate': (12, 20)
@@ -43,13 +43,12 @@ def blink_alert():
         print('\r *', end='')
         sys.stdout.flush()
         sleep(1)
-    print()  # Move to the next line after blinking
+    print()
 
 def check_vital(name, value):
     """Check a single vital sign value against limits."""
     low, high = VITALS_LIMITS[name]
     if not (low <= value <= high):
-        # Print localized message
         print(MESSAGES[LANGUAGE][name])
         blink_alert()
         return False
